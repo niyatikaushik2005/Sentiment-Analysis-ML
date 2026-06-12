@@ -12,8 +12,8 @@ A comparative study of traditional machine learning and transformer-based approa
 
 This project classifies tweets into three sentiment categories — **Negative, Neutral, and Positive** — using two different approaches:
 
-- **Classical ML:** TF-IDF Vectorization + Logistic Regression
-- **Transformer-based:** RoBERTa transformer model (HuggingFace)
+- **Classical ML:** (TF-IDF Vectorization + Logistic Regression)
+- **Transformer-based:** RoBERTa transformer model (Cardiff NLP via HuggingFace)
 
 The goal is to compare accuracy, performance per class, and understand the practical limitations of each approach on real-world noisy Twitter data.
 
