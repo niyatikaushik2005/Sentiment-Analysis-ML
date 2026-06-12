@@ -4,7 +4,9 @@
 A comparative study of traditional machine learning and transformer-based approaches for Twitter sentiment classification. Built as part of an end-to-end NLP project exploring the strengths and limitations of different text classification methods.
 
 🔗 **Live Demo:** Coming soon  
-📓 **Notebook:** [sentiment_analysis_classical_ml.ipynb](./sentiment_analysis_classical_ml.ipynb)  
+📓 **Notebooks:**
+- [Classical ML (TF-IDF + Logistic Regression)](./sentiment_analysis_classical_ml.ipynb)
+- [Transformer Model (RoBERTa)](./sentiment_analysis_bert.ipynb)
 👤 **Author:** [niyatikaushik2005](https://github.com/niyatikaushik2005)
 
 
