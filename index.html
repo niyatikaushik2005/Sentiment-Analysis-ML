@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>"Sentiment Analysis Model"</title>
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:       #83769b;
+      --sage-light: #290e53;
+      --cream:      #dec8aa;
+      --parchment:  #EDE3D3;
+      --brown:      #200f01;
+      --brown-mid:  #9C7A5B;
+      --blush:      #D4A5A5;
+      --blush-light:#df3a3a;
+      --ink:        #1f1815;
+      --mist:       #591241;
+    }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'Lora', serif;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+      background-image:
+        radial-gradient(ellipse at 10% 20%, rgba(196,217,192,0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(212,165,165,0.25) 0%, transparent 50%);
+    }
+
+    
+
+   
+
+   
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 600;
+      color: var(--brown);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .subtitle {
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      color: var(--brown-mid);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── card ── */
+    .card {
+      background: var(--parchment);
+      border: 1.5px solid rgba(107,79,58,0.18);
+      border-radius: 18px;
+      padding: 2rem 2.2rem;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 4px 24px rgba(107,79,58,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '❧';
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      font-size: 1.4rem;
+      color: var(--sage-light);
+      opacity: 0.6;
+    }
+
+    label {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--brown);
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      background: var(--cream);
+      border: 1.5px solid rgba(107,79,58,0.22);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      resize: vertical;
+      transition: border-color 0.2s;
+      line-height: 1.6;
+    }
+
+    textarea::placeholder { color: var(--brown-mid); opacity: 0.6; font-style: italic; }
+    textarea:focus { outline: none; border-color: var(--sage); }
+
+    .char-hint {
+      font-size: 0.78rem;
+      color: var(--brown-mid);
+      text-align: right;
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+
+    button {
+      margin-top: 1.2rem;
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--sage);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover { background: #6a8a63; }
+    button:active { transform: scale(0.98); }
+    button:disabled { background: var(--sage-light); cursor: not-allowed; }
+
+    /* ── result ── */
+    #result {
+      margin-top: 1.4rem;
+      display: none;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px dashed rgba(107,79,58,0.25);
+      margin-bottom: 1.2rem;
+    }
+
+    .result-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--brown-mid);
+      margin-bottom: 0.4rem;
+      font-family: 'Lora', serif;
+    }
+
+    .sentiment-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.55rem 1.1rem;
+      border-radius: 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .sentiment-badge.positive  { background: #DDF0D8; color: #3A6B35; }
+    .sentiment-badge.neutral   { background: var(--mist); color: #4A5E47; }
+    .sentiment-badge.negative  { background: var(--blush-light); color: #7A3535; }
+
+    .confidence-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 0.2rem;
+    }
+
+    .confidence-bar-wrap {
+      flex: 1;
+      height: 7px;
+      background: rgba(107,79,58,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .confidence-bar {
+      height: 100%;
+      border-radius: 10px;
+      background: var(--sage);
+      transition: width 0.6s cubic-bezier(.4,0,.2,1);
+      width: 0%;
+    }
+
+    .confidence-pct {
+      font-size: 0.82rem;
+      color: var(--brown-mid);
+      white-space: nowrap;
+      font-style: italic;
+      min-width: 48px;
+      text-align: right;
+    }
+
+    /* ── error ── */
+    #error {
+      display: none;
+      margin-top: 1rem;
+      background: var(--blush-light);
+      border: 1px solid var(--blush);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      font-size: 0.88rem;
+      color: #7A3535;
+      font-style: italic;
+    }
+
+    /* ── loading spinner ── */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── footer ── */
+    footer {
+      margin-top: 2.2rem;
+      font-size: 0.78rem;
+      color: var(--brown-mid);
+      text-align: center;
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 1.4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="border-top"></div>
+
+  <header>
+    <div class="floret">🌿</div>
+    <h1>Sentiment Analysis Model</h1>
+  </header>
+
+  <div class="card">
+    <label for="textInput">Share your thoughts here</label>
+    <textarea
+      id="textInput"
+      placeholder="Write something… a thought, a tweet, a feeling."
+      maxlength="512"
+    ></textarea>
+    <div class="char-hint"><span id="charCount">0</span> / 512</div>
+
+    <button id="analyseBtn" onclick="analyse()">
+      <span id="btnText">Read the feeling</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+
+    <div id="error"></div>
+
+    <div id="result">
+      <hr class="divider"/>
+      <div class="result-label"></div>
+      <div class="sentiment-badge" id="badge">—</div>
+      <div class="confidence-row">
+        <div class="confidence-bar-wrap">
+          <div class="confidence-bar" id="confBar"></div>
+        </div>
+        <div class="confidence-pct" id="confPct">—</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>using RoBERTa - Cardiff NLP via HuggingFace 🌸</footer>
+
+  <script>
+    const textarea = document.getElementById('textInput');
+    const charCount = document.getElementById('charCount');
+
+    textarea.addEventListener('input', () => {
+      charCount.textContent = textarea.value.length;
+    });
+
+    const EMOJI = { Positive: '🌸', Neutral: '🍃', Negative: '🥀' };
+    const CLASS = { Positive: 'positive', Neutral: 'neutral', Negative: 'negative' };
+
+    async function analyse() {
+      const text = textarea.value.trim();
+      if (!text) return;
+
+      const btn     = document.getElementById('analyseBtn');
+      const spinner = document.getElementById('spinner');
+      const btnText = document.getElementById('btnText');
+      const errorEl = document.getElementById('error');
+      const resultEl= document.getElementById('result');
+
+      // loading state
+      btn.disabled  = true;
+      spinner.style.display = 'block';
+      btnText.textContent   = 'Reading…';
+      errorEl.style.display = 'none';
+      resultEl.style.display= 'none';
+
+      try {
+        const res  = await fetch('http://127.0.0.1:8000/predict', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ text })
+        });
+
+        if (!res.ok) throw new Error('The server returned an error.');
+        const data = await res.json();
+
+        const badge   = document.getElementById('badge');
+        const confBar = document.getElementById('confBar');
+        const confPct = document.getElementById('confPct');
+
+        badge.textContent  = `${EMOJI[data.sentiment] ?? '🌿'} ${data.sentiment}`;
+        badge.className    = `sentiment-badge ${CLASS[data.sentiment] ?? ''}`;
+
+        const pct = Math.round(data.confidence * 100);
+        confPct.textContent   = `${pct}% sure`;
+        confBar.style.width   = '0%';
+        resultEl.style.display= 'block';
+        setTimeout(() => { confBar.style.width = `${pct}%`; }, 50);
+
+      } catch (err) {
+        errorEl.textContent   = '🌧 Something went wrong. Make sure the API server is running.';
+        errorEl.style.display = 'block';
+      } finally {
+        btn.disabled          = false;
+        spinner.style.display = 'none';
+        btnText.textContent   = 'Read the feeling';
+      }
+    }
+
+    // allow Enter key (Ctrl+Enter) to submit
+    textarea.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.ctrlKey) analyse();
+    });
+  </script>
+</body>
+</html>
