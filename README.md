@@ -20,6 +20,11 @@ This project classifies tweets into three sentiment categories — **Negative, N
 
 The goal is to compare accuracy, performance per class, and understand the practical limitations of each approach on real-world noisy Twitter data.
 
+## Preview
+![Neutral Result](./screenshot1.png)
+![Positive Result](./screenshot2.png)
+![Negative Result](./screenshot3.png)
+
 
 ## Dataset
 
@@ -40,7 +45,8 @@ The goal is to compare accuracy, performance per class, and understand the pract
 - scikit-learn
 - HuggingFace Datasets & Transformers
 - Pandas, Matplotlib, Seaborn
-- FastAPI *(coming soon)*
+- FastAPI
+- HTML/CSS/JS 
 
 
 ## Results — Classical ML (TF-IDF + Logistic Regression)
@@ -103,12 +109,6 @@ Switching from TF-IDF + Logistic Regression to a Twitter-pretrained RoBERTa tran
 
 ---
 
-## Coming Soon
-- [ ] FastAPI backend
-- [ ] Live demo on HuggingFace Spaces
-
----
-
 ## How to Run
 
 ```bash
@@ -122,3 +122,13 @@ pip install -r requirements.txt
 # Launch notebook
 jupyter notebook sentiment_analysis_classical_ml.ipynb
 ```
+## How to Run the App
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the API server
+uvicorn app:app --reload
+
+# Open index.html in your browser
+# Go to http://127.0.0.1:8000/docs to test the API directly
