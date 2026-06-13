@@ -123,12 +123,10 @@ pip install -r requirements.txt
 jupyter notebook sentiment_analysis_classical_ml.ipynb
 ```
 ## How to Run the App
-
+```
 # Install dependencies
 pip install -r requirements.txt
-
 # Start the API server
 uvicorn app:app --reload
-
 # Open index.html in your browser
 # Go to http://127.0.0.1:8000/docs to test the API directly
