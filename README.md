@@ -4,9 +4,6 @@
 A comparative study of traditional machine learning and transformer-based approaches for Twitter sentiment classification. Built as part of an end-to-end NLP project exploring the strengths and limitations of different text classification methods.
 
 🔗 **Live Demo:** https://huggingface.co/spaces/grogu29/sentiment-analysis 
-📓 **Notebooks:**
-- [Classical ML (TF-IDF + Logistic Regression)](./sentiment_analysis_classical_ml.ipynb)
-- [Transformer Model (RoBERTa)](./sentiment_analysis_bert.ipynb)
 
 👤 **Author:** [niyatikaushik2005](https://github.com/niyatikaushik2005)
 
@@ -15,15 +12,13 @@ A comparative study of traditional machine learning and transformer-based approa
 
 This project classifies tweets into three sentiment categories — **Negative, Neutral, and Positive** — using two different approaches:
 
-- **Classical ML:** (TF-IDF Vectorization + Logistic Regression)
+- **Classical ML:** (TF-IDF Vectorization and TF-IDF (balanced class) Vectorization ) + Logistic Regression  
 - **Transformer-based:** RoBERTa transformer model (Cardiff NLP via HuggingFace)
 
 The goal is to compare accuracy, performance per class, and understand the practical limitations of each approach on real-world noisy Twitter data.
 
 ## Preview
-![Neutral Result](./screenshot1.png)
-![Positive Result](./screenshot2.png)
-![Negative Result](./screenshot3.png)
+
 
 
 ## Dataset
