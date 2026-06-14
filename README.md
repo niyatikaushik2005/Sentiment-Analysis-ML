@@ -104,8 +104,10 @@ Varying max_features from 5,000 to 50,000 showed less than 0.3% accuracy differe
 **5. Neutral Sentiment Hardest to Learn**
 TF-IDF word importance visualization revealed the model failed to learn meaningful neutral-sentiment features, associating the neutral class with generic high-frequency words rather than sentiment-specific vocabulary — suggesting neutral sentiment is inherently difficult to capture with frequency-based methods.
 
-**6. Impact of Using BERT over Classical Model**
+**6. Impact of Using BERT over Classical Model-**
 Switching from TF-IDF + Logistic Regression to a Twitter-pretrained RoBERTa transformer improved overall accuracy by 6.6% and nearly doubled F1-score on the minority Negative class from 0.44 to 0.74, demonstrating transformers' superior ability to handle class imbalance and contextual language.
+**7.Limitations of RoBERTa model (the current model)-**
+The model misclassified mildly worded sentences like 'The pizza was okay' as Positive, revealing that both TF-IDF and RoBERTa struggle with understated or ambiguous language where 'okay' carries negative connotation contextually.This is called context blindness at the word level-TF-IDF especially can't understand that "okay" in this sentence means mediocre, not good.
 
 ---
 
