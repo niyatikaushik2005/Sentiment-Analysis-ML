@@ -86,6 +86,14 @@ Add these 3 things to your README today:
 | RoBERTa (BERT) | 72.44% | 0.74 | 0.71 | 0.71 |
 
 ---
+**Comparision result table (with balanced class)**
+
+| Model | Accuracy | Negative F1 | Neutral F1 | Positive F1 |
+|--|--|--|--|--|
+| TF-IDF + LR (unbalanced) | 65.8% | 0.44 | 0.69 | 0.69 |
+| TF-IDF + LR (balanced) | 64.9% | **0.54** | 0.65 | 0.69 |
+| RoBERTa (Cardiff NLP via HuggingFace) | 72.4% | 0.74 | 0.71 | 0.71 |
+
 
 ## Key Findings & Observations
 
