@@ -107,6 +107,9 @@ TF-IDF word importance visualization revealed the model failed to learn meaningf
 **6. Impact of Using BERT over Classical Model-**
 Switching from TF-IDF + Logistic Regression to a Twitter-pretrained RoBERTa transformer improved overall accuracy by 6.6% and nearly doubled F1-score on the minority Negative class from 0.44 to 0.74, demonstrating transformers' superior ability to handle class imbalance and contextual language.
 
+**7.Comparison between balanced class TFIDF and imbalanced class TFIDF -**
+Applying class_weight='balanced' to Logistic Regression improved Negative F1 by 23% (0.44 → 0.54) at the cost of only 0.9% overall accuracy, demonstrating that accuracy alone is a misleading metric for imbalanced datasets.
+
 **7.Limitations of RoBERTa model (the current model)-**
 The model misclassified mildly worded sentences like 'The pizza was okay' as Positive, revealing that both TF-IDF and RoBERTa struggle with understated or ambiguous language where 'okay' carries negative connotation contextually.This is called context blindness at the word level-TF-IDF especially can't understand that "okay" in this sentence means mediocre, not good.
 
