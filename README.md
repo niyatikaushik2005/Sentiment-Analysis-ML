@@ -18,7 +18,9 @@ This project classifies tweets into three sentiment categories — **Negative, N
 The goal is to compare accuracy, performance per class, and understand the practical limitations of each approach on real-world noisy Twitter data.
 
 ## Preview
-
+![Neutral Result](./screenshot1.png)
+![Positive Result](./screenshot2.png)
+![Negative Result](./screenshot3.png)
 
 
 ## Dataset
