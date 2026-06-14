@@ -46,7 +46,7 @@ The goal is to compare accuracy, performance per class, and understand the pract
 - HTML/CSS/JS 
 
 
-## Results — Classical ML (TF-IDF + Logistic Regression)
+## Results-Classical ML (TF-IDF + Logistic Regression)
 
 | max_features | Accuracy |
 |-------------|----------|
@@ -54,7 +54,8 @@ The goal is to compare accuracy, performance per class, and understand the pract
 | 10,000      | 65.86%   |
 | 50,000      | 65.77%   |
 
-**Classification Report (max_features=10,000):**
+
+## Classification Report (max_features=10,000):
 
 | Class    | Precision | Recall | F1-Score |
 |----------|-----------|--------|----------|
@@ -65,8 +66,7 @@ The goal is to compare accuracy, performance per class, and understand the pract
 
 ---
 
-
-**BERT (RoBERTa) Classification Report:**
+## BERT (RoBERTa) Classification Report:
 
 | Class | Precision | Recall | F1-Score |
 |-------|-----------|--------|----------|
@@ -77,8 +77,7 @@ The goal is to compare accuracy, performance per class, and understand the pract
 
 ---
 
-
- **Comaprision results table**
+ ## Comaprision results table
 
 | Model | Accuracy | Negative F1 | Neutral F1 | Positive F1 |
 |-------|----------|-------------|------------|-------------|
@@ -88,7 +87,7 @@ The goal is to compare accuracy, performance per class, and understand the pract
 ---
 
 
-**Comparision result table (with balanced class)**
+## Comparision result table (with balanced class)
 
 | Model | Accuracy | Negative F1 | Neutral F1 | Positive F1 |
 |--|--|--|--|--|
